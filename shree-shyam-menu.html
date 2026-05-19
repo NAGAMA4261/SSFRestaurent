@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shree Shyam Family Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF8806;
+    --orange-dark: #E07000;
+    --black: #000000;
+    --white: #FFFFFF;
+    --gray: #F3F3F3;
+    --text-dark: #1a1a1a;
+    --text-gray: #666;
+    --shadow-card: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; background: #fff; color: var(--text-dark); overflow-x: hidden; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff; border-bottom: 1px solid #f0f0f0;
+    padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--orange); font-size: 0.88rem; font-weight: 800;
+    line-height: 1.25; max-width: 140px;
+  }
+  .logo span.dot { display:inline-block; width:7px; height:7px; background:var(--orange); border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .nav-tabs { display:flex; gap:3px; background:var(--gray); padding:4px; border-radius:50px; }
+  .nav-tab { padding:7px 14px; border-radius:50px; border:none; background:transparent; font-family:'Nunito',sans-serif; font-size:0.8rem; font-weight:700; cursor:pointer; color:var(--text-gray); transition:all 0.2s; }
+  .nav-tab.active,.nav-tab:hover { background:var(--orange); color:#fff; }
+  .nav-icons { display:flex; gap:12px; }
+  .nav-icon { width:34px; height:34px; border-radius:50%; border:2px solid var(--gray); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.9rem; transition:all 0.2s; background:#fff; }
+  .nav-icon:hover { border-color:var(--orange); }
+
+  .hero { position:relative; margin:14px; border-radius:22px; background:#fff; border:2px solid rgba(255,136,6,0.15); overflow:hidden; min-height:300px; display:flex; align-items:center; }
+  .hero-bg { position:absolute; top:0; right:0; width:45%; height:100%; background:var(--orange); clip-path:ellipse(100% 120% at 100% 50%); z-index:0; }
+  .hero-pattern { position:absolute; top:0; right:0; width:45%; height:100%; opacity:0.08; z-index:1; background-image:radial-gradient(circle,#fff 1px,transparent 1px); background-size:20px 20px; }
+  .hero-content { position:relative; z-index:2; padding:36px 32px; flex:1; }
+  .hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,136,6,0.1); color:var(--orange); font-size:0.72rem; font-weight:800; padding:5px 12px; border-radius:50px; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3.5vw,2.6rem); font-weight:800; line-height:1.15; color:var(--black); margin-bottom:8px; }
+  .hero h1 span { color:var(--orange); }
+  .hero-sub { font-size:0.85rem; color:var(--text-gray); margin-bottom:18px; font-weight:600; }
+  .search-bar { display:flex; align-items:center; background:var(--gray); border-radius:50px; padding:4px 4px 4px 14px; max-width:320px; gap:8px; }
+  .search-icon-btn { background:var(--orange); border:none; border-radius:50px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; font-size:0.9rem; flex-shrink:0; }
+  .search-bar input { border:none; background:transparent; font-family:'Nunito',sans-serif; font-size:0.85rem; color:var(--text-dark); outline:none; flex:1; min-width:0; }
+  .hero-food-img { position:absolute; right:6%; top:50%; transform:translateY(-50%); z-index:3; width:clamp(150px,25vw,220px); height:clamp(150px,25vw,220px); border-radius:50%; object-fit:cover; border:6px solid #fff; box-shadow:0 12px 40px rgba(0,0,0,0.2); }
+
+  .section { padding:28px 20px 6px; }
+  .section-title { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:800; text-align:center; margin-bottom:6px; }
+  .section-title span { color:var(--orange); }
+  .section-sub { text-align:center; color:var(--text-gray); font-size:0.82rem; font-weight:600; margin-bottom:20px; }
+
+  .how-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:0 4px 20px; }
+  .how-card { background:#fff; border:1.5px solid #f0f0f0; border-radius:14px; padding:18px 10px; text-align:center; box-shadow:var(--shadow-card); }
+  .how-icon { font-size:1.8rem; margin-bottom:8px; }
+  .how-card h4 { font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px; }
+  .how-card h4 span { color:var(--orange); }
+  .how-card p { font-size:0.68rem; color:var(--text-gray); line-height:1.4; }
+
+  .read-more-btn { display:block; margin:0 auto 28px; background:var(--orange); color:#fff; border:none; border-radius:50px; padding:11px 30px; font-family:'Nunito',sans-serif; font-size:0.88rem; font-weight:800; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 16px rgba(255,136,6,0.35); }
+  .read-more-btn:hover { background:var(--orange-dark); transform:translateY(-1px); }
+
+  .category-scroll { display:flex; gap:7px; overflow-x:auto; padding:0 20px 12px; scrollbar-width:none; }
+  .category-scroll::-webkit-scrollbar { display:none; }
+  .cat-chip { flex-shrink:0; padding:7px 16px; border-radius:50px; border:2px solid var(--gray); background:#fff; font-family:'Nunito',sans-serif; font-size:0.78rem; font-weight:700; cursor:pointer; transition:all 0.2s; color:var(--text-gray); }
+  .cat-chip.active,.cat-chip:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
+
+  .menu-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:10px 20px 6px; }
+  .menu-card { background:#fff; border:1.5px solid #f0f0f0; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-card); transition:transform 0.2s,box-shadow 0.2s; cursor:pointer; }
+  .menu-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(255,136,6,0.18); }
+  .menu-card-img { width:100%; height:120px; object-fit:cover; display:block; background:var(--gray); }
+  .menu-card-body { padding:10px; }
+  .menu-card-name { font-size:0.83rem; font-weight:800; margin-bottom:2px; color:var(--text-dark); line-height:1.2; }
+  .menu-card-cat { font-size:0.7rem; color:var(--text-gray); margin-bottom:7px; font-weight:600; }
+  .menu-card-footer { display:flex; align-items:center; justify-content:space-between; }
+  .price-half { font-size:0.68rem; color:var(--text-gray); font-weight:600; }
+  .price-full { font-size:0.92rem; font-weight:800; color:var(--orange); }
+  .add-btn { width:28px; height:28px; border-radius:50%; background:var(--orange); border:none; color:#fff; font-size:1.1rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; box-shadow:0 3px 10px rgba(255,136,6,0.4); }
+  .add-btn:hover { background:var(--orange-dark); transform:scale(1.1); }
+
+  .bread-list { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:8px 20px; }
+  .bread-item { background:#fff; border:1.5px solid #f0f0f0; border-radius:13px; padding:13px; display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow-card); }
+  .bread-item-name { font-size:0.82rem; font-weight:700; }
+  .bread-item-price { font-size:0.9rem; font-weight:800; color:var(--orange); }
+
+  .blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:11px; padding:10px 20px 6px; }
+  .blog-card { background:#fff; border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card); border:1.5px solid #f0f0f0; }
+  .blog-img { width:100%; height:88px; object-fit:cover; background:var(--gray); display:block; }
+  .blog-body { padding:9px; }
+  .blog-date { font-size:0.63rem; color:var(--text-gray); font-weight:700; margin-bottom:3px; }
+  .blog-title { font-size:0.7rem; font-weight:800; line-height:1.3; margin-bottom:5px; }
+  .blog-price { font-size:0.78rem; font-weight:800; color:var(--orange); }
+
+  .dots { display:flex; justify-content:center; gap:6px; padding:14px 0; }
+  .dot { width:24px; height:8px; border-radius:50px; background:var(--orange); opacity:0.3; }
+  .dot.active { opacity:1; }
+
+  footer { background:var(--black); color:var(--white); text-align:center; padding:26px 20px; margin-top:20px; }
+  .footer-logo { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--orange); font-weight:800; margin-bottom:7px; }
+  footer p { font-size:0.76rem; color:rgba(255,255,255,0.5); }
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--orange),transparent); margin:6px 20px 0; opacity:0.25; }
+
+  @media (max-width:480px) {
+    .hero { margin:8px; }
+    .menu-grid { gap:9px; padding:8px 12px; }
+    .bread-list { padding:8px 12px; }
+    .blog-grid { grid-template-columns:repeat(2,1fr); }
+    .nav-tabs { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="dot"></span>Shree Shyam<br>Family Restaurant</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active">Home</button>
+    <button class="nav-tab">Food</button>
+    <button class="nav-tab">Menu</button>
+    <button class="nav-tab">Blog</button>
+    <button class="nav-tab">About Us</button>
+  </div>
+  <div class="nav-icons">
+    <div class="nav-icon">♡</div>
+    <div class="nav-icon">🛒</div>
+    <div class="nav-icon">👤</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🍽️ Pure Veg • Family Restaurant</div>
+    <h1>Taste the <span>Difference,</span><br>Taste the <span>Good Life</span></h1>
+    <p class="hero-sub">Shree Shyam Family Restaurant — Ghar jaisa khana</p>
+    <div class="search-bar">
+      <button class="search-icon-btn">✂</button>
+      <input type="text" placeholder="Search dishes..." oninput="filterMenu(this.value)">
+      <span style="margin-right:8px;color:var(--text-gray);font-size:0.9rem;">🔍</span>
+    </div>
+  </div>
+  <img class="hero-food-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" alt="Food">
+</div>
+
+<div class="section">
+  <h2 class="section-title">Eat Like A <span>Family</span></h2>
+  <p class="section-sub">Fresh, hot, and made with love every day</p>
+  <div class="how-cards">
+    <div class="how-card"><div class="how-icon">🥗</div><h4>WE <span>MAKE</span></h4><p>We cook your meal in the morning.</p></div>
+    <div class="how-card"><div class="how-icon">🚚</div><h4>WE <span>DELIVER</span></h4><p>Your meal will arrive from 11 pm.</p></div>
+    <div class="how-card"><div class="how-icon">🍽️</div><h4>YOU <span>EAT</span></h4><p>Best to start within 12 hours.</p></div>
+  </div>
+</div>
+<button class="read-more-btn">Read More</button>
+<div class="divider"></div>
+
+<div class="section">
+  <h2 class="section-title">Our Popular <span>Foods Menu</span></h2>
+  <p class="section-sub">मुख्य भोजन — Authentic Indian Flavours</p>
+</div>
+
+<div class="category-scroll">
+  <button class="cat-chip active" onclick="showCat('all',this)">All Items</button>
+  <button class="cat-chip" onclick="showCat('main',this)">Main Course</button>
+  <button class="cat-chip" onclick="showCat('chaap',this)">Chaap</button>
+  <button class="cat-chip" onclick="showCat('bread',this)">Bread / Paratha</button>
+  <button class="cat-chip" onclick="showCat('fastfood',this)">Fast Food</button>
+  <button class="cat-chip" onclick="showCat('snacks',this)">Snacks</button>
+</div>
+
+<div class="menu-grid" id="menuGrid">
+
+  <div class="menu-card" data-cat="main" data-name="chole bhature">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400&q=75" alt="Chole Bhature">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Chole Bhature</div>
+      <div class="menu-card-cat">Main Course • Vegetarian</div>
+      <div class="menu-card-footer"><div><div class="price-half">Full only</div><div class="price-full">₹70/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="shahi paneer">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&q=75" alt="Shahi Paneer">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Shahi Paneer</div>
+      <div class="menu-card-cat">Main Course • Paneer</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹240/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="matar paneer">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400&q=75" alt="Matar Paneer">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Matar Paneer</div>
+      <div class="menu-card-cat">Main Course • Paneer</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹220/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="kadai paneer">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&q=75" alt="Kadai Paneer">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Kadai Paneer</div>
+      <div class="menu-card-cat">Main Course • Paneer</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹240/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="dal makhani">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&q=75" alt="Dal Makhani">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Dal Makhani</div>
+      <div class="menu-card-cat">Main Course • Dal</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹120/-</div><div class="price-full">Full ₹200/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main chaap" data-name="malai chaap">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=75" alt="Malai Chaap">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Malai Chaap</div>
+      <div class="menu-card-cat">Main Course • Chaap</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹220/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="chaap" data-name="butter chaap">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=75" alt="Butter Chaap">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Butter Chaap</div>
+      <div class="menu-card-cat">Main Course • Chaap</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹150/-</div><div class="price-full">Full ₹280/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="chaap" data-name="korma chaap">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=75" alt="Korma Chaap">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Korma Chaap</div>
+      <div class="menu-card-cat">Main Course • Chaap</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹220/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="dal fry">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=75" alt="Dal Fry">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Dal Fry</div>
+      <div class="menu-card-cat">Main Course • Dal</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹80/-</div><div class="price-full">Full ₹140/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="thali">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1546548970-71785318a17b?w=400&q=75" alt="Thali">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Thali</div>
+      <div class="menu-card-cat">Main Course • Special</div>
+      <div class="menu-card-footer"><div><div class="price-half">Full only</div><div class="price-full">₹80/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="pav bhaji">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=75" alt="Pav Bhaji">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Pav Bhaji</div>
+      <div class="menu-card-cat">Main Course • Street Food</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹60/-</div><div class="price-full">Full ₹100/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="aalu jeera">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&q=75" alt="Aalu Jeera">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Aalu-Jeera</div>
+      <div class="menu-card-cat">Main Course • Sabzi</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹60/-</div><div class="price-full">Full ₹100/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="palak paneer">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=75" alt="Palak Paneer">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Palak Paneer</div>
+      <div class="menu-card-cat">Main Course • Paneer</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹120/-</div><div class="price-full">Full ₹200/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="changeji paneer">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=75" alt="Changeji Paneer">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Changeji Paneer</div>
+      <div class="menu-card-cat">Main Course • Special Paneer</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹180/-</div><div class="price-full">Full ₹340/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="main" data-name="mix veg">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=75" alt="Mix Veg">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Mix Veg.</div>
+      <div class="menu-card-cat">Main Course • Sabzi</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹140/-</div><div class="price-full">Full ₹220/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="bread pakoda">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1606851091851-e8c8d0283175?w=400&q=75" alt="Bread Pakoda">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Bread Pakoda</div>
+      <div class="menu-card-cat">Fast Food • Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Single</div><div class="price-full">₹25/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="paneer bread pakoda">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&q=75" alt="Paneer Bread Pakoda">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Paneer Bread Pakoda</div>
+      <div class="menu-card-cat">Fast Food • Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Single</div><div class="price-full">₹40/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="burger">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=75" alt="Burger">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Burger</div>
+      <div class="menu-card-cat">Fast Food</div>
+      <div class="menu-card-footer"><div><div class="price-half">Single</div><div class="price-full">₹50/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="paneer burger">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400&q=75" alt="Paneer Burger">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Paneer Burger</div>
+      <div class="menu-card-cat">Fast Food</div>
+      <div class="menu-card-footer"><div><div class="price-half">Single</div><div class="price-full">₹70/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="chaumin">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&q=75" alt="Chaumin">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Chaumin</div>
+      <div class="menu-card-cat">Fast Food • Noodles</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹40/-</div><div class="price-full">Full ₹80/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="red sauce pasta">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=400&q=75" alt="Red Sauce Pasta">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Red Sauce Pasta</div>
+      <div class="menu-card-cat">Fast Food • Pasta</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹50/-</div><div class="price-full">Full ₹100/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="white sauce pasta">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=75" alt="White Sauce Pasta">
+    <div class="menu-card-body">
+      <div class="menu-card-name">White Sauce Pasta</div>
+      <div class="menu-card-cat">Fast Food • Pasta</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹60/-</div><div class="price-full">Full ₹110/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="paneer pakoda">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&q=75" alt="Paneer Pakoda">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Paneer Pakoda</div>
+      <div class="menu-card-cat">Fast Food • Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Per KG</div><div class="price-full">₹400/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="chilli potato">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1576107232684-1279f2f10e4c?w=400&q=75" alt="Chilli Potato">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Chilli Potato</div>
+      <div class="menu-card-cat">Fast Food • Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹50/-</div><div class="price-full">Full ₹100/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="momoz fry">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&q=75" alt="Momoz Fry">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Momoz Fry</div>
+      <div class="menu-card-cat">Fast Food • Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Plate</div><div class="price-full">₹50/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="snacks" data-name="pyaj pakoda">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1606851091851-e8c8d0283175?w=400&q=75" alt="Pyaj Pakoda">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Pyaj Pakoda</div>
+      <div class="menu-card-cat">Snacks</div>
+      <div class="menu-card-footer"><div><div class="price-half">Plate</div><div class="price-full">₹20/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="snacks" data-name="samosa">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?w=400&q=75" alt="Samosa">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Samosa</div>
+      <div class="menu-card-cat">Snacks • Street Food</div>
+      <div class="menu-card-footer"><div><div class="price-half">Per piece</div><div class="price-full">₹15/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="snacks fastfood" data-name="tikki">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&q=75" alt="Tikki">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Tikki</div>
+      <div class="menu-card-cat">Snacks • Street Food</div>
+      <div class="menu-card-footer"><div><div class="price-half">Half ₹50/-</div><div class="price-full">Full ₹100/-</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood" data-name="cold drink">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&q=75" alt="Cold Drink">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Cold Drink</div>
+      <div class="menu-card-cat">Beverages</div>
+      <div class="menu-card-footer"><div><div class="price-half">At</div><div class="price-full">MRP</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+  <div class="menu-card" data-cat="fastfood snacks" data-name="paneer jalebi">
+    <img class="menu-card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75" alt="Paneer Jalebi">
+    <div class="menu-card-body">
+      <div class="menu-card-name">Paneer Jalebi</div>
+      <div class="menu-card-cat">Sweets • Special</div>
+      <div class="menu-card-footer"><div><div class="price-half">Ask for</div><div class="price-full">Price</div></div><button class="add-btn">+</button></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+<div class="divider"></div>
+
+<div class="section">
+  <h2 class="section-title">Roti & <span>Paratha</span></h2>
+  <p class="section-sub">रोटी और परांठा — Fresh baked every order</p>
+</div>
+
+<div class="bread-list" id="breadList">
+  <div class="bread-item" data-cat="bread" data-name="aalu pyaj paratha"><div><div class="bread-item-name">Aalu Pyaj Paratha</div><div style="font-size:0.68rem;color:var(--text-gray);font-weight:600;">Bread</div></div><div style="display:flex;align-items:center;gap:7px;"><span class="bread-item-price">₹70/-</span><button class="add-btn" style="width:24px;height:24px;font-size:1rem;">+</button></div></div>
+  <div class="bread-item" data-cat="bread" data-name="paneer paratha"><div><div class="bread-item-name">Paneer Paratha</div><div style="font-size:0.68rem;color:var(--text-gray);font-weight:600;">Bread</div></div><div style="display:flex;align-items:center;gap:7px;"><span class="bread-item-price">₹100/-</span><button class="add-btn" style="width:24px;height:24px;font-size:1rem;">+</button></div></div>
+  <div class="bread-item" data-cat="bread" data-name="naan"><div><div class="bread-item-name">Naan</div><div style="font-size:0.68rem;color:var(--text-gray);font-weight:600;">Bread</div></div><div style="display:flex;align-items:center;gap:7px;"><span class="bread-item-price">₹20/-</span><button class="add-btn" style="width:24px;height:24px;font-size:1rem;">+</button></div></div>
+  <div class="bread-item" data-cat="bread" data-name="rumali roti"><div><div class="bread-item-name">Rumali Roti</div><div style="font-size:0.68rem;color:var(--text-gray);font-weight:600;">Bread</div></div><div style="display:flex;align-items:center;gap:7px;"><span class="bread-item-price">₹15/-</span><button class="add-btn" style="width:24px;height:24px;font-size:1rem;">+</button></div></div>
+  <div class="bread-item" data-cat="bread" data-name="step naan"><div><div class="bread-item-name">Step Naan</div><div style="font-size:0.68rem;color:var(--text-gray);font-weight:600;">Bread • Special</div></div><div style="display:flex;align-items:center;gap:7px;"><span class="bread-item-price">₹50/-</span><button class="add-btn" style="width:24px;height:24px;font-size:1rem;">+</button></div></div>
+</div>
+
+<div class="divider" style="margin-top:16px;"></div>
+
+<div class="section">
+  <div style="text-align:center;margin-bottom:8px;"><span style="background:rgba(255,136,6,0.1);color:var(--orange);font-size:0.73rem;font-weight:800;padding:5px 13px;border-radius:50px;display:inline-block;">Latest blog</span></div>
+  <h2 class="section-title">Our Latest <span>Foods News</span></h2>
+</div>
+
+<div class="blog-grid">
+  <div class="blog-card"><img class="blog-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=70" alt="Blog 1"><div class="blog-body"><div class="blog-date">Jan 15 2024</div><div class="blog-title">Burger with french fries and red cabbage salad</div><div class="blog-price">$35.00</div></div></div>
+  <div class="blog-card"><img class="blog-img" src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=300&q=70" alt="Blog 2"><div class="blog-body"><div class="blog-date">Jan 15 2024</div><div class="blog-title">Burger with french fries and red cabbage salad</div><div class="blog-price">$35.00</div></div></div>
+  <div class="blog-card"><img class="blog-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=70" alt="Blog 3"><div class="blog-body"><div class="blog-date">Jan 15 2024</div><div class="blog-title">Burger with french fries and red cabbage salad</div><div class="blog-price">$35.00</div></div></div>
+</div>
+
+<div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+
+<footer>
+  <div class="footer-logo">🍽️ Shree Shyam Family Restaurant</div>
+  <p>Pure Vegetarian • Authentic Indian Flavours • Made with ❤️</p>
+</footer>
+
+<script>
+  function showCat(cat, el) {
+    document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('#menuGrid .menu-card').forEach(card => {
+      card.style.display = (cat==='all' || card.dataset.cat.includes(cat)) ? '' : 'none';
+    });
+    document.querySelectorAll('#breadList .bread-item').forEach(item => {
+      item.style.display = (cat==='all' || cat==='bread') ? '' : 'none';
+    });
+  }
+  function filterMenu(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#menuGrid .menu-card').forEach(c => { c.style.display = (!q || c.dataset.name.includes(q)) ? '' : 'none'; });
+    document.querySelectorAll('#breadList .bread-item').forEach(c => { c.style.display = (!q || c.dataset.name.includes(q)) ? '' : 'none'; });
+  }
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      this.textContent = '✓'; this.style.background = '#22c55e';
+      setTimeout(() => { this.textContent = '+'; this.style.background = 'var(--orange)'; }, 1000);
+    });
+  });
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
